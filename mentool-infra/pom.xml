@@ -43,30 +43,11 @@
         </dependency>
 
 
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-data-mongodb</artifactId>-->
-            <!--<version>${spring.boot.version}</version>-->
-        <!--</dependency>-->
-        <!--Embedded mongodb-->
+        <!--Other depedencies-->
         <dependency>
-            <groupId>de.flapdoodle.embed</groupId>
-            <artifactId>de.flapdoodle.embed.mongo</artifactId>
-            <!--<scope>test</scope>-->
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
         </dependency>
-
-        <dependency>
-            <groupId>cz.jirutka.spring</groupId>
-            <artifactId>embedmongo-spring</artifactId>
-            <version>RELEASE</version>
-            <!--<scope>test</scope>-->
-        </dependency>
-
-        <!--migration tool dependency-->
-        <!--<dependency>-->
-            <!--<groupId>com.github.mongobee</groupId>-->
-            <!--<artifactId>mongobee</artifactId>-->
-        <!--</dependency>-->
-
     </dependencies>
 </project>

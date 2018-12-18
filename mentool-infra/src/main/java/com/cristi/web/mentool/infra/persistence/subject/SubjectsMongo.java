@@ -5,13 +5,16 @@ import com.cristi.web.mentool.domain.subject.SubjectId;
 import com.cristi.web.mentool.domain.subject.Subjects;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class SubjectsMongo implements Subjects {
-    private final MongoSubjects repo;
+    private final SdjSubjects repo;
 
-    public SubjectsMongo(MongoSubjects repo) {
+    public SubjectsMongo(SdjSubjects repo) {
         this.repo = repo;
     }
 
@@ -33,7 +36,7 @@ public class SubjectsMongo implements Subjects {
 
     @Override
     public Subject add(Subject subject) {
-        return repo.insert(subject);
+        return repo.saveAndFlush(subject);
     }
 
     @Override

@@ -1,9 +1,9 @@
 package com.cristi.web.mentool.infra.persistence.subject;
 
+import com.cristi.web.mentool.application.ApplicationConfig;
 import com.cristi.web.mentool.domain.subject.Description;
 import com.cristi.web.mentool.domain.subject.Subject;
 import com.cristi.web.mentool.domain.subject.Title;
-import com.cristi.web.mentool.application.ApplicationConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,17 +17,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@DataMongoTest
 @SpringBootTest(classes = {ApplicationConfig.class})
 @EnableAutoConfiguration
-@ActiveProfiles("MEMORY_MONGO")
-public class SubjectsMongoLocalIT {
+@ActiveProfiles("MEMORY_H2")
+public class SubjectsSdjLocalIT {
 
     @Autowired
-    private MongoSubjects repo;
+    private SdjSubjects repo;
     @Autowired
     private SubjectsMongo sut;
 
@@ -46,7 +45,7 @@ public class SubjectsMongoLocalIT {
     @Test
     public void get() {
         Subject subject = someSubject();
-        repo.insert(subject);
+        repo.saveAndFlush(subject);
         Optional<Subject> actual = sut.get(subject.getId());
         assertThat(actual).isNotEmpty();
         assertThat(actual.get()).isEqualToComparingFieldByFieldRecursively(subject);
@@ -65,7 +64,7 @@ public class SubjectsMongoLocalIT {
         Subject someSubject = someSubject();
         String keyToSearch = someSubject.getTitle().getValue();
         keyToSearch = keyToSearch.substring(2, keyToSearch.length() - 1);
-        repo.insert(someSubject);
+        repo.saveAndFlush(someSubject);
         Set<Subject> actual = sut.findByTitleContaining(keyToSearch);
         assertThat(actual).isNotEmpty();
         assertThat(actual.stream().findFirst().get()).isEqualToComparingFieldByField(someSubject);
